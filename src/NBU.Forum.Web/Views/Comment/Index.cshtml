@@ -1,0 +1,47 @@
+﻿@using NBU.Forum.Contracts.Responses;
+@model IEnumerable<GetUnapprovedCommentResponse>
+@{
+    ViewData["Title"] = "Unapproved comments";
+    var index = 1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Forum</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Content</th>
+            <th scope="col">Author</th>
+            <th scope="col">View</th>
+            <th scope="col">Approve</th>
+            <th scope="col">Reject</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var comment in this.Model)
+        {
+            <tr>
+                <th scope="row">@index</th>
+                <td>@comment.Content</td>
+                <td>@comment.Author</td>
+                <td><a class="btn btn-info" asp-controller="Article" asp-action="Details" asp-route-articleId="@comment.ArticleId">View Article</a></td>
+                <td>
+                    <form asp-controller="Comment" asp-action="Approve" method="post">
+                        <input type="hidden" name="commentId" value="@comment.CommentId" />
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="Comment" asp-action="Reject" method="post">
+                        <input type="hidden" name="commentId" value="@comment.CommentId" />
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            { ++index; }
+        }
+    </tbody>
+</table>

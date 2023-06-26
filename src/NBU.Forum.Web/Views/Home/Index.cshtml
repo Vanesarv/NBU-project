@@ -1,0 +1,33 @@
+﻿@using NBU.Forum.Contracts.Responses;
+@model IEnumerable<GetArticleResponse>
+@{
+    ViewData["Title"] = "Home Page";
+    var index = 1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Forum</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in this.Model)
+        {
+            <tr>
+                <th scope="row">@index</th>
+                <td>@article.Title</td>
+                <td>@article.Author</td>
+                <td><a class="btn btn-warning" asp-controller="Article" asp-action="Details" asp-route-articleId="@article.ArticleId">View</a></td>
+            </tr>
+            { ++index; }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,37 @@
+﻿@using NBU.Forum.Contracts.Requests;
+@using NBU.Forum.Contracts.Responses;
+@model GetArticleByIdResponse
+@{
+    ViewData["Title"] = "View Article";
+}
+
+<style>
+    .add-comment {
+        background-color: #f8f9fa;
+        padding: 20px;
+        margin-top: 20px;
+    }
+</style>
+<div class="container mt-4">
+    <h1>@Model.Title</h1>
+    <p>Article Author: @Model.Author</p>
+    <p>@Model.Content</p>
+    <hr>
+
+    <h3>Comments</h3>
+
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="card mb-2">
+            <div class="card-header">
+                <span class="float-right">Created at: @comment.CreatedAt</span>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Commenter user: @comment.Author</h5>
+                <p class="card-text">@comment.Content</p>
+            </div>
+        </div>
+    }
+
+    <partial name="_CreateCommentPartial" model="new CreateCommentRequest() { ArticleId = Model.ArticleId }" />
+</div>

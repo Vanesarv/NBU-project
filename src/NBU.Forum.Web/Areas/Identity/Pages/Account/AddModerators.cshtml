@@ -1,0 +1,38 @@
+﻿@page
+@model AddModeratorsModel
+@{
+    ViewData["Title"] = "Add Moderators";
+    var index = 1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Forum</h1>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Add moderator</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <th scope="row">@index</th>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="userId" value="@user.UserId" />
+                        <button class="btn btn-info">Add to Moderator role</button>
+                    </form>
+                </td>
+            </tr>
+            { ++index; }
+        }
+    </tbody>
+</table>
